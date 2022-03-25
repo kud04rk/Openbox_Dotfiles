@@ -92,7 +92,7 @@ zstyle :bracketed-paste-magic paste-finish paste_done
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment.
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions.
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -154,3 +154,5 @@ export GPG_TTY="$(tty)"
 
 # Bat Theme
 export BAT_THEME="base16"
+
+export LC_ALL=en_US.UTF-8

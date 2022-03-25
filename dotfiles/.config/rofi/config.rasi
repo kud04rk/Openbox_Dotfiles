@@ -4,7 +4,7 @@ configuration {
   hide-scrollbar:       true;
   disable-history:      true;
   sidebar-mode:         false;
-  modi:                 "drun,run,window,file-browser";
+  modi:                 "drun,run,window";
   display-drun:         "";
   display-run:          "";
   display-window:       "";
