@@ -3,7 +3,7 @@
  */
  
 @import "colorschemes/fullscreen-dark.rasi"
-@import "resolutions/1366x768.rasi"
+@import "resolutions/1920x1080.rasi"
 
 #window {
   width: 100%;
