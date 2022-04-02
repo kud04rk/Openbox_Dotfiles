@@ -400,6 +400,11 @@
         <command>bash -c '~/.scripts/default-apps/launch lockscreen'</command>
       </action>
     </keybind>
+    <keybind key="W-b">
+      <action name="Execute">
+        <command>bash -c '~/.scripts/default-apps/launch browser'</command>
+      </action>
+    </keybind>
     <keybind key="W-r">
       <action name="Execute">
         <command>bash -c '~/.config/rofi/scripts/appsmenu.sh'</command>
@@ -803,7 +808,7 @@
   </menu>
   <applications>
     <application class="*" type="normal">
-        <decor>yes</decor>
+      <decor>yes</decor>
     </application>
     <!--
     <application class="Thunar" type="normal">
