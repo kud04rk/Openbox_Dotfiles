@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+export LC_ALL=POSIX LANG=POSIX; . "${HOME}/.crusedo_var"
+code
+cd dev
+thunar
+kitty
+
+exit ${?}

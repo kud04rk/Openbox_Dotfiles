@@ -267,10 +267,9 @@ execp_has_icon = 0
 execp_cache_icon = 0
 execp_continuous = 0
 execp_markup = 0
-execp_tooltip = Toggle play/pause │Switch music player between mpd and spotify │Open Menu │Scroll to change current song
+execp_tooltip = Toggle play/pause │Open Menu │Scroll to change current song
 execp_lclick_command = ~/.scripts/music-controller toggle
-execp_rclick_command = ~/.config/rofi/scripts/$(~/.scripts/default-apps/launch -g musicpl).sh
-execp_mclick_command = ~/.scripts/music-controller switchpl
+execp_rclick_command = ~/.scripts/music-controller switchpl
 execp_uwheel_command = ~/.scripts/music-controller prev
 execp_dwheel_command = ~/.scripts/music-controller next
 execp_font = Material 17
@@ -317,12 +316,27 @@ button_max_icon_size = 0
 
 #-------------------------------------
 # Button 3
+# button = new
+# button_text = 
+# button_tooltip = Change button style │Toggle window decoration │Swap button location L/R
+# button_lclick_command = ~/.scripts/default-apps/launch terminal -e ~/.config/openbox/visual-mode/ob-button
+# button_rclick_command = ~/.config/openbox/visual-mode/ob-button swap
+# button_mclick_command = ~/.config/openbox/visual-mode/ob-button decor
+# button_uwheel_command = 
+# button_dwheel_command = 
+# button_font = Material 17
+# button_font_color = #f9f9f9 100
+# button_padding = 3 0
+# button_background_id = 6
+# button_centered = 1
+# button_max_icon_size = 0
+
+#-------------------------------------
+# Button 3
 button = new
-button_text = 
-button_tooltip = Change button style │Toggle window decoration │Swap button location L/R
-button_lclick_command = ~/.scripts/default-apps/launch terminal -e ~/.config/openbox/visual-mode/ob-button
-button_rclick_command = ~/.config/openbox/visual-mode/ob-button swap
-button_mclick_command = ~/.config/openbox/visual-mode/ob-button decor
+button_text = ⚙
+button_tooltip = Start Coding
+button_lclick_command = ~/.scripts/code
 button_uwheel_command = 
 button_dwheel_command = 
 button_font = Material 17
@@ -421,10 +435,8 @@ button_max_icon_size = 0
 # Button 9
 button = new
 button_text = 
-button_tooltip = Ncmpcpp │Ncmpcpp - Single Album Art │Ncmpcpp - Album Art
-button_lclick_command = ~/.ncmpcpp/launch
-button_rclick_command = ~/.ncmpcpp/launch albumart
-button_mclick_command = ~/.ncmpcpp/launch single-albumart
+button_tooltip = Spotify
+button_lclick_command = bash -c '~/.scripts/default-apps/launch musicpl'
 button_uwheel_command = 
 button_dwheel_command = 
 button_font = Material 17

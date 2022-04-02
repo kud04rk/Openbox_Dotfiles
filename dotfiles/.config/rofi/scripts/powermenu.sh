@@ -17,13 +17,9 @@ A='' B='' C='' D='' E=''
 MENU="$(printf "${A}\n${B}\n${C}\n${D}\n${E}\n" | ${ROFI} -dmenu -selected-row 2)"
 
 case "$MENU" in
-    "$A") exec "${ROFI_DIR}/scripts/promptmenu.sh" \
-              --yes-command "${SEATCTL} poweroff"  \
-              --query '     Poweroff?'
+    "$A") exec shutdown now
     ;;
-    "$B") exec "${ROFI_DIR}/scripts/promptmenu.sh" \
-              --yes-command "${SEATCTL} reboot"    \
-              --query '      Reboot?'
+    "$B") exec reboot now
     ;;
     "$C") exec "$DEFAPPS_EXEC" lockscreen
     ;;

@@ -8,6 +8,7 @@ user_pref() {
 # RESTART UI ?          || Switch modes / right click on desktop / SUPER+SHIFT+R   #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # ?_START_BTN           || ? theme panel button glyphs, copy-paste from gucharmap. #
+# link to get glyphs    || https://www.toptal.com/designers/htmlarrows/symbols/    #
 # ?                     || UI Colors. Customize yourself!                          #
 #                [tips] || Play with variable (chaining) and hashtag aka comments. #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -22,8 +23,8 @@ COL_BLLE="#ac8ef4"                               # Blue-Purple
 COL_GREE="#44eb9f"                               # Green
 
 # ~~~ Don't change the variable name, the value is okay, use comments instead. ~~~ #
-MECH_START_BTN=""                              # ,,
-EYEC_START_BTN=""                              # ,,
+MECH_START_BTN="♚"                              # ,,,❃,
+EYEC_START_BTN=""                              # ,,,
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Mechanical ~~~ Visual Mode ~~~~ #
 MECH_TINT2_GRAD1="$COL_RETA"                     # Tint2 gradient color #1
@@ -120,7 +121,7 @@ QUALITY="100"
 # AUTOLOCK_MINUTE       || In minutes, requires logout to reload the config.       #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
-AUTOLOCK_MINUTE="120"
+AUTOLOCK_MINUTE="5"
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
