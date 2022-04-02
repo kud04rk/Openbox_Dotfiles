@@ -22,8 +22,8 @@ elif [ -x "/usr/libexec/polkit-gnome-authentication-agent-1" ]; then
 fi
 
 # Session auto-locker.
-xautolock -time "$AUTOLOCK_MINUTE" -locker "$("$DEFAPPS_EXEC" -g lockscreen)" -detectsleep -resetsaver -corners 00-- -cornersize 1000 \
--notifier "${EXNOTIFY_SEND} -i ${ICON_GLADIENT_DIR}/lock.png 'Lockscreen' 'Will be locked in 5s from now!'" -notify 5 2>/dev/null &
+# xautolock -time "$AUTOLOCK_MINUTE" -locker "$("$DEFAPPS_EXEC" -g lockscreen)" -detectsleep -resetsaver -corners 00-- -cornersize 1000 \
+# -notifier "${EXNOTIFY_SEND} -i ${ICON_GLADIENT_DIR}/lock.png 'Lockscreen' 'Will be locked in 5s from now!'" -notify 5 2>/dev/null &
 
 # Start the MPD player (+notification-sender).
 "$MPD_TCD"

@@ -418,9 +418,9 @@ button_max_icon_size = 0
 # Button 8
 button = new
 button_text = 
-button_tooltip = Screenshot Menu
-button_lclick_command = ~/.config/rofi/scripts/screenshot.sh
-button_rclick_command = 
+button_tooltip = Snipping | Full Screen
+button_lclick_command = bash -c '~/.scripts/shot-seldraw'
+button_rclick_command = bash -c '~/.scripts/shot-now'
 button_mclick_command = 
 button_uwheel_command = 
 button_dwheel_command = 

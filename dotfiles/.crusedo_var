@@ -108,7 +108,7 @@ SAVE_DIR="${HOME}/Pictures"
 COPY2CLIP="yes"
 ENABLE_FRAME="yes"
 FRAME_COLOR="#434c5e" #434c5e
-FRAME_PADDING="15"
+FRAME_PADDING="10"
 OPEN_FRAMED="no"
 FRAMED_SHADOW_OPACITY="25"
 TIMER_SEC="5"
@@ -121,7 +121,7 @@ QUALITY="100"
 # AUTOLOCK_MINUTE       || In minutes, requires logout to reload the config.       #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
-AUTOLOCK_MINUTE="5"
+AUTOLOCK_MINUTE="120"
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
