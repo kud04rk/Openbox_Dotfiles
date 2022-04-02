@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 export LC_ALL=POSIX LANG=POSIX; . "${HOME}/.crusedo_var"
-code
+bash -c '~/.scripts/default-apps/launch codeeditor'
 cd dev
-thunar
-kitty
+bash -c '~/.scripts/default-apps/launch filemanager'
+bash -c '~/.scripts/default-apps/launch terminal'
 
 exit ${?}
