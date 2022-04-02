@@ -1,4 +1,5 @@
 terminal="kitty"
-lockscreen="slimlock"
+lockscreen="lightdm"
 musicpl="mpd"
 filemanager="thunar"
+browser="brave"

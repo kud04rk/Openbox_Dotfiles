@@ -31,6 +31,11 @@ our $SCHEMA = [
     {sep => "QUICK START"},
 
     #         COMMAND                                                     LABEL                     ICON
+    {item => ["~/.scripts/default-apps/launch terminal",                  "Open Terminal",          "$ENV{HOME}/.icons/gladient/term.png"]},
+    {item => ["~/.scripts/default-apps/launch browser",               "Brave",      "$ENV{HOME}/.icons/gladient/brave.png"]},
+    {item => ["~/.scripts/default-apps/launch filemanager",               "Open File Manager",      "$ENV{HOME}/.icons/gladient/file-manager.png"]},
+    {sep  => undef},
+    
     {beg  => ["Launch Apps",                                                                        "$ENV{HOME}/.icons/gladient/search.png"]},
     {cat  => ["utility",                                                  "Accessories",            "applications-utilities"]},
     {cat  => ["development",                                              "Development",            "applications-development"]},
@@ -45,20 +50,11 @@ our $SCHEMA = [
     {cat  => ["system",                                                   "System",                 "applications-system"]},
     {end  => undef},
     
-    {sep  => undef},
-    
-    {item => ["~/.scripts/default-apps/launch terminal",                  "Open Terminal",          "$ENV{HOME}/.icons/gladient/term.png"]},
-    {item => ["~/.scripts/default-apps/launch filemanager",               "Open File Manager",      "$ENV{HOME}/.icons/gladient/file-manager.png"]},
-    
-    {sep  => undef},
-    
     {beg  => ["Screenshot",                                                                         "$ENV{HOME}/.icons/gladient/shot.png"]},
     {item => ["~/.scripts/shot-now delay",                                "Now",                    "$ENV{HOME}/.icons/gladient/shot.png"]},
     {item => ["~/.scripts/shot-timer",                                    "After ..s",              "$ENV{HOME}/.icons/gladient/shot.png"]},
     {item => ["~/.scripts/shot-seldraw",                                  "Select window or draw",  "$ENV{HOME}/.icons/gladient/shot.png"]},
     {end  => undef},
-    
-    {sep  => undef},
     
     {pipe => ["~/.config/openbox/pipe-menu/ob-randr.py",                  "Monitor Settings",       "$ENV{HOME}/.icons/gladient/mon-settings.png"]},
     {obgenmenu => ["Advanced Settings",                                                             "$ENV{HOME}/.icons/gladient/settings.png"]},
