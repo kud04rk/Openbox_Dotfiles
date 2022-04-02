@@ -1,0 +1,2 @@
+mpd service is not enabled at the beggning and needs to be enabled using
+systemctl enable mpd.service
