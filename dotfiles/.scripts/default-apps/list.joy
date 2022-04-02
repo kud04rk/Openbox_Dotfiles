@@ -1,5 +1,5 @@
 terminal="kitty"
 lockscreen="lightdm"
-musicpl="mpd"
+musicpl="spotify"
 filemanager="thunar"
 browser="brave"
