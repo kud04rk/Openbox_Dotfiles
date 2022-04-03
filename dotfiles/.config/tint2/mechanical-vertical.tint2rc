@@ -337,6 +337,7 @@ button = new
 button_text = { }
 button_tooltip = Start Coding
 button_lclick_command = ~/.scripts/code
+button_rclick_command = leafpad
 button_uwheel_command = 
 button_dwheel_command = 
 button_font = Material 17
