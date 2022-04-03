@@ -445,6 +445,11 @@
         <command>bash -c '~/.config/rofi/scripts/$(~/.scripts/default-apps/launch -g musicpl).sh'</command>
       </action>
     </keybind>
+    <keybind key="W-s">
+      <action name="Execute">
+        <command>leafpad</command>
+      </action>
+    </keybind>
     <keybind key="Print">
       <action name="Execute">
         <command>bash -c '~/.scripts/shot-now'</command>
