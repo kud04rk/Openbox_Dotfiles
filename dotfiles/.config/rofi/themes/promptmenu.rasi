@@ -1,112 +1,128 @@
+/*
+ *
+ * Author  : Aditya Shakya
+ * Mail    : adi1090x@gmail.com
+ * Github  : @adi1090x
+ * Twitter : @adi1090x
+ *
+ */
+
+configuration {
+    show-icons:                     false;
+	font:                      		"Comfortaa 14";
+    disable-history:                false;
+	sidebar-mode: 					false;
+}
+
 @import "sidebar/colors.rasi"
 
 * {
-  /* General */
-  text-font:                            "Comfortaa Bold 12";
-  icon-font:                            "feather 30";
-
-  option-6-listview-spacing:            30px;
-
-  // top right bottom left
-  menu-window-padding:                  6px 6px 6px 30px;
-  menu-prompt-padding:                  10px 20px 15px 20px;
-  menu-prompt-margin:                   0px;
-  menu-element-border:                  0px 10px 0px 10px;
-  menu-element-padding:                 27px 16px 21px 0px;
+    background-color:               @background;
+    text-color:                     @foreground;
 }
 
-#window {
-  width: 230px;
-  height: 147px;
-  location: center;
-  border: 0px;
-}
-
-* {
-  background-color: @background;
-  text-color: @foreground;
-  font: @icon-font;
-}
-
-#horibox {
-  children: [ listview ];
-}
-
-#listview {
-  layout: horizontal;
-}
-
-#element {
-  border: 0px;
-  padding: @option-element-padding;
-  background-color: @background-light;
-  border-radius: 8px;
-}
-
-#element.selected {
-  background-color: @accent;
-  text-color: @background;
-}
-
-* {
-  font: @text-font;
-  location: center;
-}
-
-#window {
-  padding: @menu-window-padding;
-  children: [ inputbar, horibox ];
-}
-
-#inputbar {
-  children: [ prompt ];
-  margin: @menu-inputbar-margin;
-}
-
-#listview {
-  spacing: @option-6-listview-spacing;
-  lines: 2;
+window {
+    transparency:                   "real";
+    border-radius:                  20px;
+    location:                       center;
+    width:                       	400px;
+    x-offset:                       0px;
+    y-offset:                       0px;
 }
 
 prompt {
-  padding: @menu-prompt-padding;
+    enabled: 						true;
+    padding:                        10px;
+	background-color: 				@background;
+	text-color: 					@accent;
+    border:                  		0px 2px 0px 2px;
+    border-radius:                  12px;
+    border-color:                  	@accent;
 }
 
-#prompt {
-  margin: @menu-prompt-margin;
-  background-color: @background;
-  text-color: @accent;
+textbox-prompt-colon {
+	expand: 						false;
+	str: 							" Confirmation ";
+	background-color: 				@accent;
+	text-color: 					@background;
+    padding:                        10px 10px 0px 10px;
+    border-radius:                  12px;
 }
 
-#element {
-  font: @icon-font;
-  border: @menu-element-border;
-  padding: @menu-element-padding;
-  border-color: @background-light;
+inputbar {
+	children: 						[ textbox-prompt-colon, prompt ];
+    spacing:                        5px;
+    background-color:               @background;
+    text-color:                     @foreground;
+    expand:                         false;
+    border:                  		0px;
+    border-radius:                  0px;
+    border-color:                  	@accent;
+    margin:                         0px 0px 0px 0px;
+    padding:                        0px;
+    position:                       center;
 }
 
-#element.selected {
-  border-color: @accent;
+listview {
+    columns:						2;
+    lines:							1;
+    spacing:                        15px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
 }
 
-element.active,
-element.selected.urgent {
-  background-color: @on;
-  text-color: @background;
-  border-color: @on;
+mainbox {
+    background-color:               @background;
+    children:                       [ inputbar, listview ];
+    spacing:                        15px;
+    margin:                         40px;
 }
 
-element.selected.urgent {
-  border-color: @accent;
+element {
+    background-color:               @background-light;
+    text-color:                     @foreground;
+    orientation:                    vertical;
+    border-radius:                  20px;
 }
 
-element.urgent,
-element.selected.active {
-  background-color: @off;
-  text-color: @background;
-  border-color: @off;
+element-text {
+    background-color: 				inherit;
+    text-color:       				inherit;
+	  font:							"feather 30";
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         28px 0px 28px 0px;
 }
 
-element.selected.active {
-  border-color: @accent;
+element normal.urgent,
+element alternate.urgent {
+    background-color:               @off;
+    text-color:                     @background;
+    border-radius:                  20px;
+}
+
+element normal.active,
+element alternate.active {
+    background-color:               @on;
+    text-color:                     @background;
+}
+
+element selected {
+    background-color:               @accent;
+    text-color:                     @background;
+    border:                  		0px;
+    border-radius:                  20px;
+    border-color:                  	@border;
+}
+
+element selected.urgent {
+    background-color:               @on;
+    text-color:                     @background;
+}
+
+element selected.active {
+    background-color:               @off;
+    color:                          @background;
 }

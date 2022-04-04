@@ -19,7 +19,7 @@ MENU="$(printf "${A}\n${B}\n${C}\n${D}\n${E}\n" | ${ROFI} -dmenu -selected-row 2
 case "$MENU" in
     "$A") exec shutdown now
     ;;
-    "$B") exec reboot now
+    "$B") exec shutdown -r now
     ;;
     "$C") exec "$DEFAPPS_EXEC" lockscreen
     ;;

@@ -9,3 +9,10 @@
  
  https://github.com/smsriharsha/ArchBaseInstall.git
  
+ * {
+  al:  #00000000;
+  bg:  #000000ff;
+  se:  #101010ff;
+  fg:  #FFFFFFff;
+  ac:  #EC7875ff;
+}

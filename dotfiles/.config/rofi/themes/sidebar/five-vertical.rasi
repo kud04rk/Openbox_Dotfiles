@@ -1,103 +1,92 @@
+/*
+ *
+ * Author  : Aditya Shakya
+ * Mail    : adi1090x@gmail.com
+ * Github  : @adi1090x
+ * Twitter : @adi1090x
+ *
+ */
+
+configuration {
+    show-icons:                     false;
+    disable-history:                false;
+	sidebar-mode: 					false;
+}
+
 @import "colors.rasi"
 
 * {
-  /* General */
-  text-font:                            "Comfortaa 18";
-  icon-font:                            "feather 24";
-  
-  option-6-listview-spacing:            5px;
-  menu-window-padding:                  5px 5px;
-  menu-element-padding:                 20px 0px 17px 0px;
+    background-color:               @background;
+    text-color:                     @foreground;
 }
 
-#window {
-  width: 79px;
-  height: 355px;
-  anchor: east;
-  location: east;
-  x-offset: -1.4%;
-  y-offset: 0%;
-  border: 0px;
+window {
+    transparency:                   "real";
+    border-radius:                  12px;
+    width:                          79px;
+    location:                       east;
+    x-offset:                       -15px;
+    y-offset:                       0px;
 }
 
-* {
-  background-color: @background;
-  text-color: @foreground;
-  font: @icon-font;
+listview {
+    lines:							5;
+    margin:                         8px;
+    spacing:                        8px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
 }
 
-#horibox {
-  children: [ listview ];
+mainbox {
+    background-color:               @background;
+    children:                       [ listview ];
 }
 
-#listview {
-  layout: vertical;
+element {
+    background-color:               @background-light;
+    text-color:                     @foreground;
+    orientation:                    vertical;
+    border-radius:                  12px;
 }
 
-#element {
-  border: 0px;
-  padding: @option-element-padding;
-  background-color: @background-light;
-  border-radius: 8px;
+element-text {
+    background-color: 				inherit;
+    text-color:       				inherit;
+	font:							"feather 20";
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         15px;
 }
 
-#element.selected {
-  background-color: @accent;
-  text-color: @background;
+element normal.urgent,
+element alternate.urgent {
+    background-color:               @urgent;
+    text-color:                     @foreground;
+    border-radius:                  10px;
 }
 
-* {
-  font: @text-font;
+element normal.active,
+element alternate.active {
+    background-color:               @background-alt;
+    text-color:                     @foreground;
 }
 
-#window {
-  padding: @menu-window-padding;
-  children: [ inputbar, horibox ];
+element selected {
+    background-color:               @accent;
+    text-color:                     @background;
+    border:                  		0px;
+    border-radius:                  10px;
+    border-color:                  	@border;
 }
 
-#inputbar {
-  enabled: false;
-  children: [ textbox-prompt-colon, prompt ];
-  margin: @menu-inputbar-margin;
+element selected.urgent {
+    background-color:               @urgent;
+    text-color:                     @foreground;
 }
 
-#listview {
-  spacing: @option-6-listview-spacing;
-  lines: 3;
-}
-
-#element {
-  font: @icon-font;
-  border: @menu-element-border;
-  padding: @menu-element-padding;
-  border-color: @background-light;
-}
-
-#element.selected {
-  border-color: @accent;
-  text-color: @background;
-}
-
-element.active,
-element.selected.urgent {
-  background-color: @on;
-  text-color: @background;
-  border-color: @on;
-}
-
-element.selected.urgent {
-  background-color: @accent;
-  border-color: @accent;
-}
-
-element.urgent,
-element.selected.active {
-  background-color: @off;
-  text-color: @background;
-  border-color: @off;
-}
-
-element.selected.active {
-  background-color: @accent;
-  border-color: @accent;
+element selected.active {
+    background-color:               @background-alt;
+    color:                          @foreground;
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-exec rofi -no-lazy-grab -show drun -theme themes/appsmenu.rasi
+exec rofi -no-lazy-grab -matching prefix -show drun -theme themes/appsmenu.rasi
 
 exit ${?}
