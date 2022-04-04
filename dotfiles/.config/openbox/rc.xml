@@ -198,6 +198,11 @@
         <command>bash -c '~/.scripts/music-controller next'</command>
       </action>
     </keybind>
+    <keybind key="XF86Calculator">
+      <action name="Execute">
+        <command>bash -c '~/.scripts/calculator'</command>
+      </action>
+    </keybind>
     <!-- window switching with the arrow keys -->
     <keybind key="W-S-Right">
       <action name="DirectionalCycleWindows">
@@ -856,5 +861,7 @@
     <application class="VirtualBox Manager" type="normal">
       <maximized>true</maximized>
     </application>
+    <application class="code-oss" type="normal">
+      <maximized>true</maximized>
   </applications>
 </openbox_config>
