@@ -72,7 +72,7 @@ URXVT="95"
 # Dunst notify daemon and URxvt URL launcher options       * Need to restart UI *  #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
-WEB_BROWSER="brave-bin --use-gl=desktop --enable-features=VaapiVideoDecoder"
+WEB_BROWSER="brave --use-gl=desktop --enable-features=VaapiVideoDecoder"
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -121,7 +121,7 @@ QUALITY="100"
 # AUTOLOCK_MINUTE       || In minutes, requires logout to reload the config.       #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
-AUTOLOCK_MINUTE="120"
+AUTOLOCK_MINUTE="5"
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -172,18 +172,6 @@ SCRIPTS_DIR="${HOME}/.scripts"
 NOTIFY_DIR="${SCRIPTS_DIR}/notify"
 
 STATE_EXT='joy'
-
-MPD_DIR="${HOME}/.mpd"
-NCMPCPP_DIR="${HOME}/.ncmpcpp"
-NCMPCPP_SCRIPTS_DIR="${NCMPCPP_DIR}/scripts"
-
-MPD_CONFIG="${MPD_DIR}/mpd.conf"
-MPD_CURRENT_TRACK="${NCMPCPP_SCRIPTS_DIR}/current-track.${STATE_EXT:-joy}"
-NCMPCPP_COVER='/tmp/cover.jpg'
-NCMPCPP_NOTIF_COVER='/tmp/cover-notify.jpg'
-
-GET_MPD_MUSIC_DIR="$(grep -oP 'music_directory.*"\K[^"]+' "$MPD_CONFIG")"
-CHK_MPD_MUSIC_DIR="$(sh -c "echo ${GET_MPD_MUSIC_DIR}")"
 
 OB_CONFIG="${OB_DIR}/rc.xml"
 GTK2_CONFIG="${HOME}/.gtkrc-2.0"
@@ -252,7 +240,6 @@ MUSIC_CONTROLLER="${SCRIPTS_DIR}/music-controller"
 SS_NOW="${SCRIPTS_DIR}/shot-now"
 SS_DRAW="${SCRIPTS_DIR}/shot-seldraw"
 SS_TIMER="${SCRIPTS_DIR}/shot-timer"
-MPD_TCD="${NCMPCPP_SCRIPTS_DIR}/track-change-detector"
 
 # Call user preferences.
 user_pref
