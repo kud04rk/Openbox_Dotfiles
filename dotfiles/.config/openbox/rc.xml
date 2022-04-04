@@ -425,7 +425,7 @@
         <command>~/.local/bin/networkmanager_dmenu</command>
       </action>
     </keybind>
-    <keybind key="W-S-e">
+    <keybind key="W-Escape">
       <action name="Execute">
         <command>bash -c '~/.config/rofi/scripts/powermenu.sh'</command>
       </action>
