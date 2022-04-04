@@ -21,11 +21,11 @@ frame_width = 6
 frame_color = "#3b4252"
 separator_color = "#404859"
 
-font = mplus Nerd Font 10
+font = Comfortaa 10
 
 line_height = 0
 markup = full
-format = "<span size='x-large' font_desc='Cantarell,mplus Nerd Font 9' weight='bold' foreground='#f9f9f9'>%s</span>\n%b"
+format = "<span size='x-large' font_desc='Cantarell,Comfortaa 9' weight='bold' foreground='#f9f9f9'>%s</span>\n\n%b"
 alignment = center
 vertical_alignment = center
 
@@ -46,7 +46,7 @@ max_icon_size = 80
 
 icon_path = /usr/share/icons/Papirus-Dark-Custom/48x48/actions/:/usr/share/icons/Papirus-Dark-Custom/48x48/apps/:/usr/share/icons/Papirus-Dark-Custom/48x48/devices/:/usr/share/icons/Papirus-Dark-Custom/48x48/emblems/:/usr/share/icons/Papirus-Dark-Custom/48x48/emotes/:/usr/share/icons/Papirus-Dark-Custom/48x48/mimetypes/:/usr/share/icons/Papirus-Dark-Custom/48x48/places/:/usr/share/icons/Papirus-Dark-Custom/48x48/status/
 
-browser = "brave-bin --use-gl=desktop --enable-features=VaapiVideoDecoder"
+browser = "brave --use-gl=desktop --enable-features=VaapiVideoDecoder"
 
 mouse_left_click = close_current
 mouse_middle_click = do_action
