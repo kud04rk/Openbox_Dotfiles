@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 export LC_ALL=POSIX LANG=POSIX; . "${HOME}/.crusedo_var"
-bash -c '~/.scripts/default-apps/launch codeeditor'
+bash -c '~/.scripts/default-apps/launch github'
 cd dev
 bash -c '~/.scripts/default-apps/launch filemanager'
 bash -c '~/.scripts/default-apps/launch terminal'
