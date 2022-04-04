@@ -199,28 +199,28 @@
       </action>
     </keybind>
     <!-- window switching with the arrow keys -->
-    <keybind key="W-Right">
+    <keybind key="W-S-Right">
       <action name="DirectionalCycleWindows">
         <bar>yes</bar>
         <dialog>no</dialog>
         <direction>right</direction>
       </action>
     </keybind>
-    <keybind key="W-Left">
+    <keybind key="W-S-Left">
       <action name="DirectionalCycleWindows">
         <bar>yes</bar>
         <dialog>no</dialog>
         <direction>left</direction>
       </action>
     </keybind>
-    <keybind key="W-Up">
+    <keybind key="W-S-Up">
       <action name="DirectionalCycleWindows">
         <bar>yes</bar>
         <dialog>no</dialog>
         <direction>up</direction>
       </action>
     </keybind>
-    <keybind key="W-Down">
+    <keybind key="W-S-Down">
       <action name="DirectionalCycleWindows">
         <bar>yes</bar>
         <dialog>no</dialog>
@@ -228,7 +228,7 @@
       </action>
     </keybind>
     <!-- split/tile window -->
-    <keybind key="W-S-Left">
+    <keybind key="W-Left">
       <action name="MoveResizeTo">
         <x>0</x>
         <y>0</y>
@@ -236,7 +236,7 @@
         <height>1/1</height>
       </action>
     </keybind>
-    <keybind key="W-S-Right">
+    <keybind key="W-Right">
       <action name="MoveResizeTo">
         <x>-0</x>
         <y>0</y>
@@ -244,14 +244,14 @@
         <height>1/1</height>
       </action>
     </keybind>
-    <keybind key="W-S-Up">
+    <keybind key="W-Up">
       <action name="MoveResizeTo">
         <y>0</y>
         <width>1/2</width>
         <height>1/2</height>
       </action>
     </keybind>
-    <keybind key="W-S-Down">
+    <keybind key="W-Down">
       <action name="MoveResizeTo">
         <y>-0</y>
         <width>1/2</width>
@@ -835,13 +835,16 @@
       <decor>no</decor>
     </application>
     -->
-    <application name="termite">
+    <application name="kitty">
       <size>
         <width>45%</width>
         <height>43%</height>
       </size>
     </application>
     <application class="mpv" type="normal">
+      <maximized>true</maximized>
+    </application>
+    <application class="celluloid" type="normal">
       <maximized>true</maximized>
     </application>
     <application class="kdenlive" type="normal">
