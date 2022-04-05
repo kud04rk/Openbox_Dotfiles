@@ -64,12 +64,11 @@ EYEC_MIN_OB_MENU_ITM="$EYEC_MIN_ROFI_FRGRND"     # Item color of openbox menu
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 0-100 ~~~~~~ Opacity Control ~~ #
 DUNST="95"
-URXVT="95"
 # PANEL? AFAIK, tranparent panel is not good.
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Dunst notify daemon and URxvt URL launcher options       * Need to restart UI *  #
+# Dunst notify daemon and Kitty URL launcher options       * Need to restart UI *  #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 WEB_BROWSER="brave --use-gl=desktop --enable-features=VaapiVideoDecoder"
