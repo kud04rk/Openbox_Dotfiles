@@ -437,8 +437,8 @@ button_max_icon_size = 0
 # Button 9
 button = new
 button_text = 
-button_tooltip = Empty
-button_lclick_command = 
+button_tooltip = Spotify
+button_lclick_command = bash -c '~/.scripts/default-apps/launch musicpl'
 button_rclick_command = 
 button_mclick_command = 
 button_uwheel_command = 
