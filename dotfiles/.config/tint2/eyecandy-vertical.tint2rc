@@ -267,7 +267,7 @@ execp_has_icon = 0
 execp_cache_icon = 0
 execp_continuous = 0
 execp_markup = 0
-execp_tooltip = Toggle play/pause │Switch music player between mpd and spotify │Open Menu │Scroll to change current song
+execp_tooltip = Toggle play/pause │Open Menu │Scroll to change current song
 execp_lclick_command = ~/.scripts/music-controller toggle
 execp_rclick_command = ~/.config/rofi/scripts/$(~/.scripts/default-apps/launch -g musicpl).sh
 execp_mclick_command = ~/.scripts/music-controller switchpl
@@ -317,61 +317,94 @@ button_max_icon_size = 0
 
 #-------------------------------------
 # Button 3
-button = new
-button_text = 
-button_tooltip = Change button style │Toggle window decoration │Swap button location L/R
-button_lclick_command = ~/.scripts/default-apps/launch terminal -e ~/.config/openbox/visual-mode/ob-button
-button_rclick_command = ~/.config/openbox/visual-mode/ob-button swap
-button_mclick_command = ~/.config/openbox/visual-mode/ob-button decor
-button_uwheel_command = 
-button_dwheel_command = 
-button_font = Material 17
-button_font_color = #a6d5f4 100
-button_padding = 3 0
-button_background_id = 6
-button_centered = 1
-button_max_icon_size = 0
+# button = new
+# button_text = 
+# button_tooltip = Change button style │Toggle window decoration │Swap button location L/R
+# button_lclick_command = ~/.scripts/default-apps/launch terminal -e ~/.config/openbox/visual-mode/ob-button
+# button_rclick_command = ~/.config/openbox/visual-mode/ob-button swap
+# button_mclick_command = ~/.config/openbox/visual-mode/ob-button decor
+# button_uwheel_command = 
+# button_dwheel_command = 
+# button_font = Material 17
+# button_font_color = #a6d5f4 100
+# button_padding = 3 0
+# button_background_id = 6
+# button_centered = 1
+# button_max_icon_size = 0
 
 #-------------------------------------
-# Button 4
+# Button 3
 button = new
-button_text = 
-button_tooltip = Toggle Minimal Mode for current Visual Mode
-button_lclick_command = ~/.config/openbox/visual-mode/mode-toggle minimal
-button_rclick_command = 
-button_mclick_command = 
+button_text =
+button_tooltip = Start Coding
+button_lclick_command = ~/.scripts/code
+button_rclick_command = leafpad
 button_uwheel_command = 
 button_dwheel_command = 
-button_font = Material 17
+button_font = Material 18
 button_font_color = #44ebca 100
 button_padding = 3 0
 button_background_id = 6
-button_centered = 1
+button_centered = 2
 button_max_icon_size = 0
 
+# #-------------------------------------
+# # Button 4
+# button = new
+# button_text = 
+# button_tooltip = Toggle Minimal Mode for current Visual Mode
+# button_lclick_command = ~/.config/openbox/visual-mode/mode-toggle minimal
+# button_rclick_command = 
+# button_mclick_command = 
+# button_uwheel_command = 
+# button_dwheel_command = 
+# button_font = Material 17
+# button_font_color = #44ebca 100
+# button_padding = 3 0
+# button_background_id = 6
+# button_centered = 1
+# button_max_icon_size = 0
+# 
+# #-------------------------------------
+# # Button 5
+# button = new
+# button_text = 
+# button_tooltip = Orientation: Reverse V/H │Reverse L/R or T/B
+# button_lclick_command = ~/.config/openbox/visual-mode/ort-toggle ort
+# button_rclick_command = ~/.config/openbox/visual-mode/ort-toggle lrtb
+# button_mclick_command = 
+# button_uwheel_command = 
+# button_dwheel_command = 
+# button_font = Material 17
+# button_font_color = #44eb9f 100
+# button_padding = 3 0
+# button_background_id = 6
+# button_centered = 1
+# button_max_icon_size = 0
+# 
+# #-------------------------------------
+# # Button 6
+# button = new
+# button_text = 
+# button_tooltip = Switch Visual Mode to Mechanical Theme or Eyecandy Theme
+# button_lclick_command = ~/.config/openbox/visual-mode/mode-toggle
+# button_rclick_command = 
+# button_mclick_command = 
+# button_uwheel_command = 
+# button_dwheel_command = 
+# button_font = Material 17
+# button_font_color = #faa687 100
+# button_padding = 3 0
+# button_background_id = 6
+# button_centered = 1
+# button_max_icon_size = 0
+# 
 #-------------------------------------
-# Button 5
+# Button 7
 button = new
-button_text = 
-button_tooltip = Orientation: Reverse V/H │Reverse L/R or T/B
-button_lclick_command = ~/.config/openbox/visual-mode/ort-toggle ort
-button_rclick_command = ~/.config/openbox/visual-mode/ort-toggle lrtb
-button_mclick_command = 
-button_uwheel_command = 
-button_dwheel_command = 
-button_font = Material 17
-button_font_color = #44eb9f 100
-button_padding = 3 0
-button_background_id = 6
-button_centered = 1
-button_max_icon_size = 0
-
-#-------------------------------------
-# Button 6
-button = new
-button_text = 
-button_tooltip = Switch Visual Mode to Mechanical Theme or Eyecandy Theme
-button_lclick_command = ~/.config/openbox/visual-mode/mode-toggle
+button_text = 
+button_tooltip = Power Menu
+button_lclick_command = ~/.config/rofi/scripts/powermenu.sh
 button_rclick_command = 
 button_mclick_command = 
 button_uwheel_command = 
@@ -384,29 +417,12 @@ button_centered = 1
 button_max_icon_size = 0
 
 #-------------------------------------
-# Button 7
-button = new
-button_text = 
-button_tooltip = Power Menu
-button_lclick_command = ~/.config/rofi/scripts/powermenu.sh
-button_rclick_command = 
-button_mclick_command = 
-button_uwheel_command = 
-button_dwheel_command = 
-button_font = Material 17
-button_font_color = #fa74b2 100
-button_padding = 3 0
-button_background_id = 6
-button_centered = 1
-button_max_icon_size = 0
-
-#-------------------------------------
 # Button 8
 button = new
 button_text = 
-button_tooltip = Screenshot Menu
-button_lclick_command = ~/.config/rofi/scripts/screenshot.sh
-button_rclick_command = 
+button_tooltip = Snipping | Full Screen
+button_lclick_command = bash -c '~/.scripts/shot-seldraw'
+button_rclick_command = bash -c '~/.scripts/shot-now'
 button_mclick_command = 
 button_uwheel_command = 
 button_dwheel_command = 
