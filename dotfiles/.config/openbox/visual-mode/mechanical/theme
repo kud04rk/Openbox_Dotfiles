@@ -56,6 +56,11 @@ APPLY_ALL()
 
     # Set Kitty theme
     ln -vsf $HOME/.kitty-themes/themes/crusedo.conf $HOME/.config/kitty/theme.conf
+
+     # set spotify theme
+    pkill spotify
+    spicetify config current_theme Dribbblish color_scheme mechanical
+    spicetify apply
     
     # The Openbox buttons and theme.
     cp -f "${OB_BUTTON_DIR}/${CHK_VISMOD_BUTTON}"/* "$MECH_BUTTON_DIR"/.
