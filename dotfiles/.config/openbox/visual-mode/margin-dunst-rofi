@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 export LC_ALL=POSIX LANG=POSIX; . "${HOME}/.crusedo_var"
 
-OB_MARGIN="10"
+OB_MARGIN="0"
 
 echo "$CHK_ORT" > "${VISMOD_ROFI_FILE}.${STATE_EXT:-joy}"
 

@@ -64,6 +64,7 @@ EYEC_MIN_OB_MENU_ITM="$EYEC_MIN_ROFI_FRGRND"     # Item color of openbox menu
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 0-100 ~~~~~~ Opacity Control ~~ #
 DUNST="95"
+
 # PANEL? AFAIK, tranparent panel is not good.
 
 
