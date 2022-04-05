@@ -47,7 +47,9 @@ APPLY_ALL()
         sed -i '/<titleLayout>/s/>.*</>LIMC</' "$OB_CONFIG"
         echo 'right' > "$MINMOD_LOC_BUTTON_FILE"
     fi
-    
+     # Set Kitty theme
+    ln -vsf $HOME/.kitty-themes/themes/mechanical_mini.conf $HOME/.config/kitty/theme.conf
+
     # The Openbox buttons and theme.
     cp -f "${OB_BUTTON_DIR}/${CHK_MINMOD_BUTTON}"/* "$MECH_BUTTON_DIR"/.
     THEME_LINE="$(cat -n "$OB_CONFIG" | grep '<name>.*</name>' | sed 1q | grep -oE '[0-9]+')"
