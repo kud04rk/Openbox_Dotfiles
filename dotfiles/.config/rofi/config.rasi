@@ -2,9 +2,9 @@ configuration {
   show-icons:           true;
   cycle:                true;
   hide-scrollbar:       true;
-  disable-history:      true;
+  disable-history:      false;
   sidebar-mode:         false;
-  modi:                 "drun,run,window";
+  modi:                 "drun,run,window,filebrowser";
   display-drun:         "";
   display-run:          "";
   display-window:       "";
