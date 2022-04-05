@@ -133,18 +133,6 @@ AUTOLOCK_MINUTE="5"
 AUDIO_STEPS="2"
 BRIGHTNESS_STEPS="2"
 
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Ncmpcpp album-art image backend options                         * Auto-reload *  #
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Currently only supports `w3m` and `pixbuf`.                                      #
-# * pixbuf with terminal transparency is broken;                                   #
-# * rxvt-unicode works like a charm.                                               #
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
-NCMPCPP_ALBUMART_BACKEND="w3m"
-
-
 }
 #                                                        [ END OF USER PREFERENCES ]
 
