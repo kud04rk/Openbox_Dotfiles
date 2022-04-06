@@ -407,7 +407,7 @@
     </keybind>
     <keybind key="W-b">
       <action name="Execute">
-        <command>bash -c '~/.scripts/default-apps/launch browser'</command>
+        <command>brave --use-gl=desktop --enable-features=VaapiVideoDecoder</command>
       </action>
     </keybind>
     <keybind key="W-r">
