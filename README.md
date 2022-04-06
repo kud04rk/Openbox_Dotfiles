@@ -22,6 +22,7 @@ I have made my tweaks to suit my use case.
 
 
 # ScreenShots
+![opnebox](https://user-images.githubusercontent.com/23277835/161962029-cc9830be-b47c-4720-959a-fc0835cfd0cb.gif)
 
 
 # Shortcuts
