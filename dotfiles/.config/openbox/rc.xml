@@ -863,6 +863,6 @@
     </application>
     <application class="code-oss" type="normal">
       <maximized>true</maximized>
-    </applocation>
+    </application>
   </applications>
 </openbox_config>
