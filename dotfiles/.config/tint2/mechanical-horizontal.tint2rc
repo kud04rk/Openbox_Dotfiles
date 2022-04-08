@@ -5,13 +5,13 @@
 # Gradients
 # Gradient 1
 gradient = horizontal
-start_color = #f48ee8 100
-end_color = #fa74b2 100
+start_color = STARTCOLOR1 100
+end_color = STARTCOLOR2 100
 
 # Gradient 2
 gradient = vertical
-start_color = #f48ee8 82
-end_color = #fa74b2 82
+start_color = STARTCOLOR1 82
+end_color = STARTCOLOR2 82
 
 #-------------------------------------
 # Backgrounds
@@ -276,10 +276,10 @@ execp_has_icon = 0
 execp_cache_icon = 0
 execp_continuous = 0
 execp_markup = 0
-execp_tooltip = Toggle play/pause │Switch music player between mpd and spotify │Open Menu │Scroll to change current song
+execp_tooltip = Toggle play/pause │Launch spotify │Scroll to change current song
 execp_lclick_command = ~/.scripts/music-controller toggle
-execp_rclick_command = ~/.config/rofi/scripts/$(~/.scripts/default-apps/launch -g musicpl).sh
-execp_mclick_command = ~/.scripts/music-controller switchpl
+execp_rclick_command = ~/.scripts/default-apps/launch musicpl
+execp_mclick_command = 
 execp_uwheel_command = ~/.scripts/music-controller prev
 execp_dwheel_command = ~/.scripts/music-controller next
 execp_font = Material 17
@@ -328,9 +328,9 @@ button_max_icon_size = 0
 # Button 3
 button = new
 button_text = 
-button_tooltip = Screenshot Menu
-button_lclick_command = ~/.config/rofi/scripts/screenshot.sh
-button_rclick_command = 
+button_tooltip = Snipping | Full Screen
+button_lclick_command = bash -c '~/.scripts/shot-seldraw'
+button_rclick_command = bash -c '~/.scripts/shot-now'
 button_mclick_command = 
 button_uwheel_command = 
 button_dwheel_command = 
@@ -412,11 +412,11 @@ button_max_icon_size = 0
 #-------------------------------------
 # Button 8
 button = new
-button_text = 
-button_tooltip = Change button style │Toggle window decoration │Swap button location L/R
-button_lclick_command = ~/.scripts/default-apps/launch terminal -e ~/.config/openbox/visual-mode/ob-button
-button_rclick_command = ~/.config/openbox/visual-mode/ob-button swap
-button_mclick_command = ~/.config/openbox/visual-mode/ob-button decor
+button_text =
+button_tooltip = Start Coding
+button_lclick_command = ~/.scripts/code
+button_rclick_command = leafpad
+button_mclick_command =
 button_uwheel_command = 
 button_dwheel_command = 
 button_font = Material 17

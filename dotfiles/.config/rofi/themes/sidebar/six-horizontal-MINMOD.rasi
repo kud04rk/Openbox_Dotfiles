@@ -1,103 +1,106 @@
+/*
+ *
+ * Author  : Aditya Shakya
+ * Mail    : adi1090x@gmail.com
+ * Github  : @adi1090x
+ * Twitter : @adi1090x
+ *
+ */
+
+configuration {
+    show-icons:                     false;
+	font:                      		"Comfortaa 14";
+    disable-history:                false;
+	sidebar-mode: 					false;
+}
+
 @import "colors.rasi"
 
 * {
-  /* General */
-  text-font:                            "Comfortaa 18";
-  icon-font:                            "feather 24";
-  
-  option-6-listview-spacing:            5px;
-  menu-window-padding:                  5px 5px;
-  menu-element-padding:                 22px 23px 18px 0px;
+    background-color:               @background;
+    text-color:                     @foreground;
 }
 
-#window {
-  width: 456px;
-  height: 78px;
-  anchor: north;
-  location: north;
-  x-offset: 0%;
-  y-offset: 6.6%;
-  border: 0px;
+window {
+    transparency:                   "real";
+    border-radius:                  12px;
+    location:                       North;
+    width:                       	600px;
+    x-offset:                       0px;
+    y-offset:                       6.9%;
 }
 
-* {
-  background-color: @background;
-  text-color: @foreground;
-  font: @icon-font;
+prompt {
+    enabled: 						true;
+    padding:                        10px;
+	background-color: 				@background;
+	text-color: 					@accent;
+    border:                  		0px 2px 0px 2px;
+    border-radius:                  12px;
+    border-color:                  	@accent;
 }
 
-#horibox {
-  children: [ listview ];
+
+listview {
+    columns:						6;
+    lines:							1;
+    spacing:                        15px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
 }
 
-#listview {
-  layout: horizontal;
+mainbox {
+    background-color:               @background;
+    children:                       [ listview ];
+    spacing:                        15px;
+    margin:                         20px;
 }
 
-#element {
-  border: 0px;
-  padding: @option-element-padding;
-  background-color: @background-light;
-  border-radius: 8px;
+element {
+    background-color:               @background-light;
+    text-color:                     @foreground;
+    orientation:                    vertical;
+    border-radius:                  20px;
 }
 
-#element.selected {
-  background-color: @accent;
-  text-color: @background;
+element-text {
+    background-color: 				inherit;
+    text-color:       				inherit;
+	  font:							"feather 30";
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         14px 0px 14px 0px;
 }
 
-* {
-  font: @text-font;
+element normal.urgent,
+element alternate.urgent {
+    background-color:               @off;
+    text-color:                     @background;
+    border-radius:                  20px;
 }
 
-#window {
-  padding: @menu-window-padding;
-  children: [ inputbar, horibox ];
+element normal.active,
+element alternate.active {
+    background-color:               @on;
+    text-color:                     @background;
 }
 
-#inputbar {
-  enabled: false;
-  children: [ textbox-prompt-colon, prompt ];
-  margin: @menu-inputbar-margin;
+element selected {
+    background-color:               @accent;
+    text-color:                     @background;
+    border:                  		0px;
+    border-radius:                  20px;
+    border-color:                  	@border;
 }
 
-#listview {
-  spacing: @option-6-listview-spacing;
-  lines: 6;
+element selected.urgent {
+    background-color:               @on;
+    text-color:                     @background;
 }
 
-#element {
-  font: @icon-font;
-  border: @menu-element-border;
-  padding: @menu-element-padding;
-  border-color: @background-light;
-}
-
-#element.selected {
-  border-color: @accent;
-  text-color: @background;
-}
-
-element.active,
-element.selected.urgent {
-  background-color: @on;
-  text-color: @background;
-  border-color: @on;
-}
-
-element.selected.urgent {
-  background-color: @accent;
-  border-color: @accent;
-}
-
-element.urgent,
-element.selected.active {
-  background-color: @off;
-  text-color: @background;
-  border-color: @off;
-}
-
-element.selected.active {
-  background-color: @accent;
-  border-color: @accent;
+element selected.active {
+    background-color:               @off;
+    color:                          @background;
 }
