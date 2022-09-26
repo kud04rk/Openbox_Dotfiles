@@ -53,9 +53,6 @@ https://github.com/owl4ce/dotfiles.git if you want to install manually
 Please use this script if you wish to install on a [Base Arch Linux](https://github.com/kud04rk/ArchBaseInstall.git).
 https://github.com/kud04rk/OpenboxInstall.git
 
-### Note:
-
-I havent tested the script with multiple environments.
 
 ## Arch Base install
 
