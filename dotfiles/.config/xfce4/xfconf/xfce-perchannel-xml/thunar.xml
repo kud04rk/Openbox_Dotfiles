@@ -15,7 +15,7 @@
   <property name="misc-thumbnail-mode" type="string" value="THUNAR_THUMBNAIL_MODE_ALWAYS"/>
   <property name="misc-file-size-binary" type="bool" value="false"/>
   <property name="misc-date-style" type="string" value="THUNAR_DATE_STYLE_DDMMYYYY"/>
-  <property name="shortcuts-icon-size" type="string" value="THUNAR_ICON_SIZE_16"/>
+  <property name="shortcuts-icon-size" type="string" value="THUNAR_ICON_SIZE_24"/>
   <property name="misc-show-delete-action" type="bool" value="true"/>
   <property name="last-separator-position" type="int" value="174"/>
   <property name="misc-middle-click-in-tab" type="bool" value="true"/>
