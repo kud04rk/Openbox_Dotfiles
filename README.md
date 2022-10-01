@@ -33,7 +33,7 @@ https://github.com/kud04rk/Openbox_Dotfiles/tree/main/screenshots
 
 # Shortcuts
 
-## Window managemet shortcuts
+## Window management shortcuts
 
 https://github.com/kud04rk/Openbox_Dotfiles/blob/main/openbox%20shortcuts.md
 
