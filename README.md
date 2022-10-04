@@ -31,6 +31,9 @@ I have made my tweaks to suit my use case.
 https://github.com/kud04rk/Openbox_Dotfiles/tree/main/screenshots
 </br>
 
+## To change Wallpapers
+The default wallpapes are located in the ``` .wallpapers ``` of home directory. It can be linked to the place where you save your wallpapers.
+
 # Shortcuts
 
 ## Window management shortcuts
