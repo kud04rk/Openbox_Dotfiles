@@ -34,9 +34,20 @@ case ${1} in
     ;;
     ''|-*) run
     ;;
+    "terminal")    if grep -Fqo "${1}=" "$DEFAPPS_FILE"; then
+               EXEC="$(grep -oP "${1}=\"\K[^\"]+" "$DEFAPPS_FILE")"               
+               if [ -n "$2" ]; then
+                   exec $((${EXEC} -e $3) &>/dev/null &)
+               elif [ -n "$1" ]; then
+                   exec $(${EXEC} &>/dev/null &)
+               fi
+           else
+               die "${M}${1}${NC} isn't in the list. Define it first!"
+           fi                    
+    ;;
     *)     if grep -Fqo "${1}=" "$DEFAPPS_FILE"; then
                EXEC="$(grep -oP "${1}=\"\K[^\"]+" "$DEFAPPS_FILE")"
-               if [ -n "$2" ]; then
+               if [ -n "$2" ]; then               
                    exec $(${EXEC} $(tr ' ' '\ ' <<< "${@}") &>/dev/null &)
                elif [ -n "$1" ]; then
                    exec $(${EXEC} &>/dev/null &)
