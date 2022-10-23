@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+export LC_ALL=POSIX LANG=POSIX; . "${HOME}/.crusedo_var"
+cp ~/.zsh_conda/.zshrc_activate ~/.zshrc      
+exit ${?}
