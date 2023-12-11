@@ -9,6 +9,10 @@ set number relativenumber
 
 "no system sounds when at the end of line 
 set belloff=all
+set mouse =a
+set clipboard=unnamedplus
+set cursorline
+highlight CursorLine cterm=bold
 
 "tabs config
 set tabstop=4
@@ -21,6 +25,9 @@ set smartindent
 
 "no swapfiles
 set noswapfile
+
+"Shortcuts
+nnoremap S :%s//g<Left><Left>
 
 "searching
 set incsearch
