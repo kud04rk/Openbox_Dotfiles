@@ -15,8 +15,11 @@ export LANG=en_US.UTF-8
 alias c="clear"
 alias q="exit"
 alias l="ls -lrt"
-alias zc="${HOME}/.scripts/zsh_conda_add"
-alias nzc="${HOME}/.scripts/zsh_conda_remove"
+alias gconda="${HOME}/.scripts/zsh_conda_add"
+alias rconda="${HOME}/.scripts/zsh_conda_remove"
+alias get_idf='. ${HOME}/esp/esp-idf/export.sh'
+alias gnvm="${HOME}/.scripts/zsh_nvm_add"
+alias rnvm="${HOME}/.scripts/zsh_nvm_remove"
 
 # GPG Dialog
 export GPG_TTY="$(tty)"
@@ -40,3 +43,4 @@ export LC_ALL=en_US.UTF-8
 #fi
 #unset __conda_setup
 ## <<< conda initialize <<<
+
