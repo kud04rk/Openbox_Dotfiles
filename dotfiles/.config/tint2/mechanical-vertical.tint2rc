@@ -436,9 +436,9 @@ button_max_icon_size = 0
 #-------------------------------------
 # Button 9
 button = new
-button_text = 
-button_tooltip = Spotify
-button_lclick_command = bash -c '~/.scripts/default-apps/launch musicpl'
+button_text = 
+button_tooltip = Firefox
+button_lclick_command = bash -c '~/.scripts/firefox'
 button_uwheel_command = 
 button_dwheel_command = 
 button_font = Material 17

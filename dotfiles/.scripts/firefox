@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+export LC_ALL=POSIX LANG=POSIX; . "${HOME}/.crusedo_var"
+
+if type -p firefox &>/dev/null; then
+	FIREFOX_CMD=(firefox)
+elif flatpak info org.mozilla.firefox &>/dev/null; then
+	FIREFOX_CMD=(flatpak run org.mozilla.firefox)
+else
+	exec "$EXNOTIFY_SEND" -u critical -r 1499 'Firefox' '<b>firefox</b> is not installed!'
+fi
+
+"${FIREFOX_CMD[@]}" &>/dev/null &
+
+exit ${?}

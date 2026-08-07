@@ -652,8 +652,9 @@ execp_icon_h = 0
 #-------------------------------------
 # Button 1
 button = new
-button_text = 
-button_lclick_command = 
+button_text = 
+button_tooltip = Firefox
+button_lclick_command = bash -c '~/.scripts/firefox'
 button_rclick_command = 
 button_mclick_command = 
 button_uwheel_command = 
