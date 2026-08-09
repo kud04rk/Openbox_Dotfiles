@@ -639,9 +639,8 @@ execp_icon_h = 0
 #-------------------------------------
 # Button 1
 button = new
-button_text = 
-button_tooltip = Firefox
-button_lclick_command = bash -c '~/.scripts/firefox'
+button_text = 
+button_lclick_command = 
 button_rclick_command = 
 button_mclick_command = 
 button_uwheel_command = 
@@ -656,9 +655,9 @@ button_max_icon_size = 0
 #-------------------------------------
 # Button 2
 button = new
-button_text = 
-button_tooltip = Change current wallpaper │Generate wallpaper
-button_lclick_command = ~/.scripts/default-apps/launch terminal -e ~/.config/openbox/visual-mode/wally
+button_text = 
+button_tooltip = Firefox
+button_lclick_command = bash -c '~/.scripts/firefox'
 button_rclick_command = ~/.config/openbox/visual-mode/wally generate
 button_mclick_command = 
 button_uwheel_command = 
