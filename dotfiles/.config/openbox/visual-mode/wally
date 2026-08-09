@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 export LC_ALL=POSIX LANG=POSIX; . "${HOME}/.crusedo_var"
 
+apply_wallpaper()
+{
+    nitrogen --set-zoom-fill --save "$1" &>/dev/null || exit 1
+    SELECTED="$(grep -oE '[^/]+$' <<< "$1")"
+    echo "$SELECTED" > "$([ -n "$CHK_MINMOD" ] && echo "$MINMOD_WALL_FILE" || echo "$VISMOD_WALL_FILE")"
+}
+
 get_size()
 {
     SIZE="$(identify -format '%w' "$RAW")"
@@ -64,12 +71,13 @@ case ${1} in
                   exit 1
               else
                   eval "IMG=\$image${NUM}"
-                  nitrogen --set-zoom-fill --save "$IMG" &>/dev/null || exit 1
-                  SELECTED="$(grep -oE '[^/]+$' <<< "$IMG")"
-                  echo "$SELECTED" > "$([ -n "$CHK_MINMOD" ] && echo "$MINMOD_WALL_FILE" || echo "$VISMOD_WALL_FILE")"
+                  apply_wallpaper "$IMG"
                   printf "${C}[${GB}√${NC}${C}] ${W}Selected wallpaper: ${r}${SELECTED}\n"
                   "$EXNOTIFY_SEND" -u low -r 99 -i "$NOTIF_WALLY_ICON" '' "<span size='small'><u>${SELECTED}</u></span>\nSuccessfully applied"
               fi
+    ;;
+    apply)    apply_wallpaper "${2:?No wallpaper specified}"
+              "$EXNOTIFY_SEND" -u low -r 99 -i "$NOTIF_WALLY_ICON" '' "<span size='small'><u>${SELECTED}</u></span>\nSuccessfully applied"
     ;;
 esac
 
