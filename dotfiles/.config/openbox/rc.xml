@@ -820,6 +820,14 @@
     <application class="*" type="normal">
       <decor>yes</decor>
     </application>
+    <application class="firefox" type="normal">
+      <decor>no</decor>
+      <maximized>true</maximized>
+    </application>
+    <application class="Firefox" type="normal">
+      <decor>no</decor>
+      <maximized>true</maximized>
+    </application>
     <!--
     <application class="Thunar" type="normal">
       <maximized>true</maximized>
