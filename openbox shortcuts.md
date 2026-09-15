@@ -69,6 +69,7 @@ Press `Super+F1` anywhere to open a searchable rofi popup with all of the shortc
 | `Super+R` | Application launcher (rofi) |
 | `Super+PgUp` | Brightness menu (rofi) |
 | `Super+PgDn` | Volume menu (rofi) |
+| `Super+F11` | Bluetooth menu |
 | `Super+F12` | Network menu |
 | `Super+Esc` | Power menu (rofi) |
 | `Super+Return` | Terminal |

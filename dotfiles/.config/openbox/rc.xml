@@ -430,6 +430,11 @@
         <command>bash -c '~/.config/rofi/scripts/volume.sh'</command>
       </action>
     </keybind>
+    <keybind key="W-F11">
+      <action name="Execute">
+        <command>~/.local/bin/bluetooth_dmenu</command>
+      </action>
+    </keybind>
     <keybind key="W-F12">
       <action name="Execute">
         <command>~/.local/bin/networkmanager_dmenu</command>

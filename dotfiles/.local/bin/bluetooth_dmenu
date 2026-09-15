@@ -1,0 +1,491 @@
+#!/usr/bin/env python3
+# encoding:utf8
+"""Bluetooth (bluez) command line dmenu/rofi script.
+
+Shells out to bluetoothctl. Pairing/trusting/removing devices may require
+policykit permissions for your user, similar to networkmanager_dmenu.
+
+Add dmenu formatting options and default terminal if desired to
+~/.config/bluetooth-dmenu/config.ini
+
+"""
+import configparser
+import itertools
+import locale
+import os
+from os.path import expanduser
+import pathlib
+import re
+import shlex
+import struct
+import subprocess
+import sys
+import time
+from subprocess import Popen, PIPE
+
+ENV = os.environ.copy()
+ENV['LC_ALL'] = 'C'
+ENC = locale.getpreferredencoding()
+
+CONF = configparser.ConfigParser()
+CONF.read(expanduser("~/.config/bluetooth-dmenu/config.ini"))
+
+BTCTL = "bluetoothctl"
+
+
+def dmenu_cmd(num_lines, prompt="", active_lines=None):
+    """Parse config.ini if it exists and add options to the dmenu command
+
+    Args: args - num_lines: number of lines to display
+                 prompt: prompt to show
+                 active_lines: line numbers to highlight (rofi -a)
+    Returns: command invocation (as a list of strings) for
+                dmenu -l <num_lines> -p <prompt> -i ...
+
+    """
+    dmenu_command = "dmenu"
+    if not CONF.sections():
+        res = [dmenu_command, "-i", "-l", str(num_lines), "-p", str(prompt)]
+        res.extend(sys.argv[1:])
+        return res
+    if CONF.has_section('dmenu'):
+        args = dict(CONF.items('dmenu'))
+        dmenu_args = []
+        command_key = next((key for key in ("dmenu_command", "rofi_command")
+                            if key in args), None)
+        if command_key is not None:
+            command = shlex.split(args[command_key])
+            dmenu_command = command[0]
+            dmenu_args = command[1:]
+            del args[command_key]
+        if "p" in args:
+            prompt = args["p"]
+            del args["p"]
+        if "rofi" in dmenu_command:
+            lines = "-i -dmenu -lines"
+            # rofi doesn't support 0 length line, it requires at least -lines=1
+            num_lines = num_lines or 1
+        else:
+            lines = "-i -l"
+        if "l" in args:
+            if "rofi" in dmenu_command:
+                args['l'] = min(num_lines, int(args['l'])) or 1
+            lines = "{} {}".format(lines, args['l'])
+            del args['l']
+        else:
+            lines = "{} {}".format(lines, num_lines)
+        for hidden in ("pinentry", "compact", "wifi_chars", "scan_timeout"):
+            if hidden in args:
+                del args[hidden]
+        rofi_highlight = CONF.getboolean('dmenu', 'rofi_highlight',
+                                         fallback=False)
+        if "rofi_highlight" in args:
+            del args["rofi_highlight"]
+        if rofi_highlight is True and "rofi" in dmenu_command:
+            if active_lines:
+                dmenu_args.extend(["-a", ",".join([str(num)
+                                                   for num in active_lines])])
+    extras = (["-" + str(k), str(v)] for (k, v) in args.items())
+    res = [dmenu_command]
+    if str(prompt):
+        res += ["-p", str(prompt)]
+    res.extend(dmenu_args)
+    res += list(itertools.chain.from_iterable(extras))
+    res[1:1] = lines.split()
+    res = list(filter(None, res))  # Remove empty list elements
+    res.extend(sys.argv[1:])
+    return res
+
+
+def bt(*args, timeout=15):
+    """Run bluetoothctl non-interactively and return its output"""
+    try:
+        res = subprocess.run([BTCTL] + list(args), stdout=PIPE,
+                             stderr=subprocess.STDOUT, env=ENV,
+                             timeout=timeout)
+        return res.stdout.decode(ENC)
+    except (subprocess.TimeoutExpired, FileNotFoundError):
+        return ""
+
+
+def _parse_props(out):
+    """Parse tab-indented 'Key: value' lines into a dict"""
+    props = {}
+    for line in out.splitlines():
+        if line.startswith("\t") and ":" in line:
+            key, val = line.strip().split(":", 1)
+            props[key.strip()] = val.strip()
+    return props
+
+
+def controller():
+    """Return dict of the default controller's properties or None"""
+    out = bt("show")
+    if not out or "No default controller" in out:
+        return None
+    return _parse_props(out)
+
+
+def devices():
+    """Return list of known devices from `bluetoothctl devices`"""
+    out = bt("devices")
+    devs = []
+    seen = set()
+    for line in out.splitlines():
+        parts = line.split(" ", 2)
+        if len(parts) == 3 and parts[0] == "Device" and parts[1] not in seen:
+            seen.add(parts[1])
+            devs.append({"mac": parts[1], "name": parts[2]})
+    return devs
+
+
+def device_info(mac):
+    """Return dict of properties for a device (Paired, Connected, ...)"""
+    props = _parse_props(bt("info", mac))
+    dev = {"mac": mac, "name": props.get("Alias", mac), "paired": False,
+           "trusted": False, "connected": False, "battery": None,
+           "icon": props.get("Icon", "")}
+    if not props:
+        return dev
+    dev["name"] = props.get("Alias", props.get("Name", mac))
+    dev["paired"] = props.get("Paired") == "yes"
+    dev["trusted"] = props.get("Trusted") == "yes"
+    dev["connected"] = props.get("Connected") == "yes"
+    match = re.search(r"\((\d+)\)", props.get("Battery Percentage", ""))
+    if match:
+        dev["battery"] = int(match.group(1))
+    return dev
+
+
+class Action():  # pylint: disable=too-few-public-methods
+    """Helper class to execute functions from a string variable"""
+    def __init__(self,
+                 name,
+                 func,
+                 args=None,
+                 active=False):
+        self.name = name
+        self.func = func
+        self.is_active = active
+        if args is None:
+            self.args = None
+        elif isinstance(args, list):
+            self.args = args
+        else:
+            self.args = [args]
+
+    def __str__(self):
+        return self.name
+
+    def __call__(self):
+        if self.args is None:
+            self.func()
+        else:
+            self.func(*self.args)
+
+
+def get_selection(all_actions, prompt=""):
+    """Spawn dmenu for selection and return the associated action."""
+    rofi_highlight = CONF.getboolean('dmenu', 'rofi_highlight', fallback=False)
+    inp = []
+
+    if rofi_highlight is True:
+        inp = [str(action) for action in all_actions]
+    else:
+        inp = [('== ' if action.is_active else '   ') + str(action)
+               for action in all_actions]
+    active_lines = [index for index, action in enumerate(all_actions)
+                    if action.is_active]
+
+    inp_bytes = "\n".join(inp).encode(ENC)
+    command = dmenu_cmd(len(inp), prompt, active_lines=active_lines)
+    sel = Popen(command, stdin=PIPE, stdout=PIPE,
+                env=ENV).communicate(input=inp_bytes)[0].decode(ENC)
+
+    if not sel.rstrip():
+        sys.exit()
+
+    if rofi_highlight is False:
+        action = [i for i in all_actions
+                  if ((str(i).strip() == str(sel.strip())
+                       and not i.is_active) or
+                      ('== ' + str(i) == str(sel.rstrip('\n'))
+                       and i.is_active))]
+    else:
+        action = [i for i in all_actions if str(i).strip() == sel.strip()]
+    assert len(action) == 1, \
+        u"Selection was ambiguous: '{}'".format(str(sel.strip()))
+    return action[0]
+
+
+def notify(message, details=None, urgency="low", icon=""):
+    """Use notify-send if available for notifications"""
+    args = ["-u", urgency, "-i", icon, message]
+    if details is not None:
+        args.append(details)
+
+    try:
+        Popen(["notify-send"] + args,
+              stdout=PIPE, stderr=PIPE).communicate()
+    except FileNotFoundError:
+        pass
+
+
+def rfkill_bluetooth_blocked():
+    """Check if bluetooth is soft-blocked via rfkill"""
+    for path in pathlib.Path('/sys/class/rfkill/').glob('rfkill*'):
+        if (path / 'type').read_text().strip() == 'bluetooth':
+            return (path / 'soft').read_text().strip() == '1'
+    return False
+
+
+def rfkill_bluetooth(block):
+    """(Un)block bluetooth via rfkill, like networkmanager_dmenu does"""
+    if rfkill_bluetooth_blocked() == block:
+        return
+    try:
+        subprocess.run(["rfkill", "block" if block else "unblock",
+                        "bluetooth"], stdout=PIPE, stderr=PIPE, env=ENV)
+        return
+    except FileNotFoundError:
+        pass
+    # Fall back to writing to /dev/rfkill directly (requires write access)
+    type_bluetooth = 2
+    op_change_all = 3
+    soft_state = 1 if block else 0
+    data = struct.pack("IBBBB", 0, type_bluetooth, op_change_all,
+                       soft_state, 0)
+    try:
+        with open('/dev/rfkill', 'r+b', buffering=0) as rff:
+            rff.write(data)
+    except PermissionError:
+        pass
+
+
+def power_wait(enable, retries=10, delay=0.3):
+    """Wait for the controller to reach the requested power state.
+
+    bluetoothctl may answer org.bluez.Error.Busy while the adapter is
+    transitioning, and the Powered property settles asynchronously, so poll
+    instead of trusting a single read.
+    """
+    for _ in range(retries):
+        state = controller()
+        if state is not None and (state.get("Powered") == "yes") == enable:
+            return True
+        time.sleep(delay)
+    return False
+
+
+def ensure_powered():
+    """Make sure bluetooth is unblocked and powered on"""
+    state = controller()
+    if state is not None and state.get("Powered") == "yes":
+        return True
+    rfkill_bluetooth(block=False)
+    bt("power", "on", timeout=10)
+    return power_wait(True)
+
+
+def toggle_power(enable):
+    """Enable/disable the Bluetooth controller"""
+    if enable:
+        if ensure_powered():
+            notify("Bluetooth enabled", icon="bluetooth")
+        else:
+            notify("Problem enabling Bluetooth", urgency="critical",
+                   icon="dialog-error")
+    else:
+        bt("power", "off")
+        rfkill_bluetooth(block=True)
+        if power_wait(False):
+            notify("Bluetooth disabled", icon="bluetooth-disabled")
+        else:
+            notify("Problem disabling Bluetooth", urgency="critical",
+                   icon="dialog-error")
+
+
+def toggle_discoverable(enable):
+    """Make the controller discoverable/not discoverable"""
+    bt("discoverable", "on" if enable else "off")
+    notify("Bluetooth {}".format("discoverable" if enable
+                                 else "not discoverable"), icon="bluetooth")
+
+
+def toggle_trust(dev):
+    """Trust/untrust a device"""
+    enable = not dev["trusted"]
+    bt("trust" if enable else "untrust", dev["mac"])
+    if device_info(dev["mac"])["trusted"] == enable:
+        notify("{}trusted {}".format("" if enable else "Un", dev["name"]),
+               icon="bluetooth")
+    else:
+        notify("Problem trusting {}".format(dev["name"]),
+               urgency="critical", icon="dialog-error")
+
+
+def process_device(dev):
+    """Connect a disconnected device, disconnect a connected one"""
+    if dev["connected"]:
+        bt("disconnect", dev["mac"], timeout=30)
+        if device_info(dev["mac"])["connected"]:
+            notify("Problem disconnecting {}".format(dev["name"]),
+                   urgency="critical", icon="dialog-error")
+        else:
+            notify("Disconnected {}".format(dev["name"]),
+                   icon="bluetooth-disabled")
+    else:
+        bt("connect", dev["mac"], timeout=30)
+        if device_info(dev["mac"])["connected"]:
+            notify("Connected to {}".format(dev["name"]),
+                   icon="bluetooth")
+        else:
+            notify("Problem connecting to {}".format(dev["name"]),
+                   urgency="critical", icon="dialog-error")
+
+
+def delete_device(dev):
+    """Remove a known device"""
+    bt("remove", dev["mac"], timeout=30)
+    if "not available" in bt("info", dev["mac"]):
+        notify("Removed {}".format(dev["name"]), icon="emblem-remove")
+    else:
+        notify("Problem removing {}".format(dev["name"]),
+               urgency="critical", icon="dialog-error")
+
+
+def pair_device(dev):
+    """Pair, trust and connect to a new device"""
+    bt("pair", dev["mac"], timeout=60)
+    if not device_info(dev["mac"])["paired"]:
+        notify("Problem pairing {}".format(dev["name"]),
+               urgency="critical", icon="dialog-error")
+        return
+    notify("Paired {}".format(dev["name"]), icon="bluetooth")
+    bt("trust", dev["mac"])
+    process_device(dev)
+
+
+def prompt_pair_new():
+    """Scan for new devices, then pair/trust/connect the selected one"""
+    if not ensure_powered():
+        notify("Problem enabling Bluetooth", urgency="critical",
+               icon="dialog-error")
+        return
+    notify("Scanning for Bluetooth devices...", icon="system-search")
+    # A bare non-interactive `bluetoothctl scan on` exits immediately and
+    # bluez stops discovery with it; --timeout keeps the client (and the
+    # discovery session) alive for the duration.
+    timeout = CONF.getint("dmenu", "scan_timeout", fallback=10)
+    bt("--timeout", str(timeout), "scan", "on", timeout=timeout + 15)
+    bt("scan", "off")
+    # Only show devices that advertise a real name; anonymous ones just use
+    # their MAC address (e.g. "42-07-11-7F-2B-3A") and are usually noise
+    mac_like = re.compile(r"^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$")
+    new = [d for d in (device_info(dev["mac"]) for dev in devices())
+           if not d["paired"] and not mac_like.match(d["name"])]
+    if not new:
+        notify("No new devices found", icon="system-search")
+        return
+    new.sort(key=lambda d: d["name"].lower())
+    sel = get_selection(create_device_actions(new, pair_device,
+                                              presorted=True))
+    sel()
+
+
+def prompt_saved(action_func, title):
+    """Show a submenu of known devices and run action_func on the selection"""
+    devs = [device_info(dev["mac"]) for dev in devices()]
+    if not devs:
+        notify("No known Bluetooth devices", icon="dialog-information")
+        return
+    sel = get_selection(create_device_actions(devs, action_func), title)
+    sel()
+
+
+def prompt_trust():
+    prompt_saved(toggle_trust, "TRUST DEVICE:")
+
+
+def prompt_delete():
+    prompt_saved(delete_device, "REMOVE DEVICE:")
+
+
+def create_device_actions(devs, func=process_device, presorted=False):
+    """Create the list of device strings with the action attached
+
+    Args: devs - list of device dicts from device_info()
+          func - function called with the chosen device dict
+          presorted - keep the given order instead of re-sorting
+    """
+    if not presorted:
+        devs = sorted(devs, key=lambda d: (not d["connected"],
+                                           not d["paired"],
+                                           d["name"].lower()))
+    names = [d["name"] for d in devs]
+    max_len_name = max([len(n) for n in names]) if names else 0
+    stats = []
+    for dev in devs:
+        parts = []
+        if dev["connected"]:
+            parts.append("Connected")
+        elif dev["paired"]:
+            parts.append("Paired")
+        else:
+            parts.append("Not paired")
+        if dev["battery"] is not None:
+            parts.append("{}%".format(dev["battery"]))
+        stats.append(" ".join(parts))
+    max_len_stat = max([len(s) for s in stats]) if stats else 0
+
+    actions = []
+    for dev, name, stat in zip(devs, names, stats):
+        action_name = u"{:<{nw}}  {:<{sw}}".format(name, stat,
+                                                   nw=max_len_name,
+                                                   sw=max_len_stat)
+        actions.append(Action(action_name, func, [dev],
+                              active=dev["connected"]))
+    return actions
+
+
+def create_other_actions(ctl):
+    """Return list of other actions that can be taken"""
+    powered = ctl.get("Powered") == "yes"
+    power_action = "Disable" if powered else "Enable"
+    discoverable = ctl.get("Discoverable") == "yes"
+    discoverable_action = "Disable" if discoverable else "Enable"
+
+    actions = []
+    if powered:
+        actions += [Action("Scan for New Devices", prompt_pair_new),
+                    Action("Trust a Device", prompt_trust),
+                    Action("Remove a Device", prompt_delete),
+                    Action("{} Discoverable".format(discoverable_action),
+                           toggle_discoverable, not discoverable)]
+    actions.append(Action("{} Bluetooth".format(power_action),
+                          toggle_power, not powered))
+    return actions
+
+
+def run():
+    """Main script entrypoint"""
+    ctl = controller()
+    if ctl is None:
+        notify("No Bluetooth adapter found", urgency="critical",
+               icon="dialog-error")
+        sys.exit()
+    if ctl.get("Powered") == "yes":
+        dev_actions = create_device_actions(
+            [device_info(dev["mac"]) for dev in devices()])
+        if dev_actions:
+            dev_actions.append(Action('', None))
+    else:
+        dev_actions = []
+    sel = get_selection(dev_actions + create_other_actions(ctl), "Devices")
+    sel()
+
+
+if __name__ == '__main__':
+    run()
+
+# vim: set et ts=4 sw=4 :
