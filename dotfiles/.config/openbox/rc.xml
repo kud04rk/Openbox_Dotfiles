@@ -415,6 +415,11 @@
         <command>bash -c '~/.config/rofi/scripts/appsmenu.sh'</command>
       </action>
     </keybind>
+    <keybind key="W-F1">
+      <action name="Execute">
+        <command>bash -c '~/.config/rofi/scripts/shortcutsmenu.sh'</command>
+      </action>
+    </keybind>
     <keybind key="W-Prior">
       <action name="Execute">
         <command>bash -c '~/.config/rofi/scripts/backlight.sh'</command>
